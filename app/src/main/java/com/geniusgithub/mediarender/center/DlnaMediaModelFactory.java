@@ -68,6 +68,7 @@ public class DlnaMediaModelFactory {
 			mediainfo.setAlbumUri(getElementValue(doc,"upnp:albumArtURI"));
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.err.println(metadata);
 		}
 		return mediainfo;
 	}
