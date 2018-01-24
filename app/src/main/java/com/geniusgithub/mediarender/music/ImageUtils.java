@@ -18,79 +18,79 @@ import com.geniusgithub.mediarender.util.CommonLog;
 import com.geniusgithub.mediarender.util.LogFactory;
 
 public class ImageUtils {
-	private static final CommonLog log = LogFactory.createLog();
-	
-	public static Bitmap createRotateReflectedMap(Bitmap originalBitmap) {
-		float width = ((float)200) / (originalBitmap.getWidth());
-		float height =  ((float)200) / (originalBitmap.getHeight());
-		Matrix matrix = new Matrix();
-		matrix.postScale(width, height);
-		originalBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.getWidth(), originalBitmap.getHeight(),
-				                             matrix, true);
-		Bitmap bitmap = createReflectedImage(originalBitmap);
-		bitmap = createRotateImage(bitmap);
-		return bitmap;
-	}
+    private static final CommonLog log = LogFactory.createLog();
 
-	public static Bitmap createRotateReflectedMap(Context ctx, Drawable resId) {
+    public static Bitmap createRotateReflectedMap(Bitmap originalBitmap) {
+        float width = ((float) 200) / (originalBitmap.getWidth());
+        float height = ((float) 200) / (originalBitmap.getHeight());
+        Matrix matrix = new Matrix();
+        matrix.postScale(width, height);
+        originalBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.getWidth(), originalBitmap.getHeight(),
+                matrix, true);
+        Bitmap bitmap = createReflectedImage(originalBitmap);
+        bitmap = createRotateImage(bitmap);
+        return bitmap;
+    }
 
-		Bitmap bitmap = ((BitmapDrawable)resId).getBitmap();
-		if (bitmap != null) {
-			log.e("bitmap is not null");
-			return createRotateReflectedMap(bitmap);
-		}
-		return null;
-	}
+    public static Bitmap createRotateReflectedMap(Context ctx, Drawable resId) {
 
-	public static Bitmap createRotateImage(Bitmap originalBitmap) {
-		Camera camera = new Camera();
-		camera.save();
-		camera.rotateY(10f);
-		Matrix mMatrix = new Matrix();
-		camera.getMatrix(mMatrix);
-		camera.restore();
+        Bitmap bitmap = ((BitmapDrawable) resId).getBitmap();
+        if (bitmap != null) {
+            log.e("bitmap is not null");
+            return createRotateReflectedMap(bitmap);
+        }
+        return null;
+    }
 
-		Bitmap bm = Bitmap.createBitmap(originalBitmap, 0, 0,
-				originalBitmap.getWidth(), originalBitmap.getHeight(), mMatrix,
-				true);
-		//Bitmap bm = Bitmap.createBitmap(originalBitmap, 0, 0,270,270,mMatrix,true);
-		return bm;
-	}
+    public static Bitmap createRotateImage(Bitmap originalBitmap) {
+        Camera camera = new Camera();
+        camera.save();
+        camera.rotateY(10f);
+        Matrix mMatrix = new Matrix();
+        camera.getMatrix(mMatrix);
+        camera.restore();
 
-	public static Bitmap createReflectedImage(Bitmap originalBitmap) {
-		final int reflectionGap = 4;
+        Bitmap bm = Bitmap.createBitmap(originalBitmap, 0, 0,
+                originalBitmap.getWidth(), originalBitmap.getHeight(), mMatrix,
+                true);
+        //Bitmap bm = Bitmap.createBitmap(originalBitmap, 0, 0,270,270,mMatrix,true);
+        return bm;
+    }
 
-		int width = originalBitmap.getWidth();
-		int height = originalBitmap.getHeight();
-		
-	    
-		Matrix matrix = new Matrix();
-		
-		matrix.preScale(1, -1);
-		Bitmap reflectionBitmap = Bitmap.createBitmap(originalBitmap, 0,
-				height / 2, width, height / 2, matrix, false);
-		Bitmap withReflectionBitmap = Bitmap.createBitmap(width, (height
-				+ height / 2 + reflectionGap), Config.ARGB_8888);
+    public static Bitmap createReflectedImage(Bitmap originalBitmap) {
+        final int reflectionGap = 4;
 
-		Canvas canvas = new Canvas(withReflectionBitmap);
-		canvas.drawBitmap(originalBitmap, 0, 0, null);
+        int width = originalBitmap.getWidth();
+        int height = originalBitmap.getHeight();
 
-		Paint defaultPaint = new Paint();
-		canvas.drawRect(0, height, width, height + reflectionGap, defaultPaint);
 
-		canvas.drawBitmap(reflectionBitmap, 0, height + reflectionGap, null);
+        Matrix matrix = new Matrix();
 
-		Paint paint = new Paint();
-		LinearGradient shader = new LinearGradient(0,
-				originalBitmap.getHeight(), 0,
-				withReflectionBitmap.getHeight(), 0x70ffffff, 0x00ffffff,
-				TileMode.MIRROR);
-		paint.setShader(shader);
-		paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
+        matrix.preScale(1, -1);
+        Bitmap reflectionBitmap = Bitmap.createBitmap(originalBitmap, 0,
+                height / 2, width, height / 2, matrix, false);
+        Bitmap withReflectionBitmap = Bitmap.createBitmap(width, (height
+                + height / 2 + reflectionGap), Config.ARGB_8888);
 
-		canvas.drawRect(0, height, width, withReflectionBitmap.getHeight(),
-				paint);
+        Canvas canvas = new Canvas(withReflectionBitmap);
+        canvas.drawBitmap(originalBitmap, 0, 0, null);
 
-		return withReflectionBitmap;
-	}
+        Paint defaultPaint = new Paint();
+        canvas.drawRect(0, height, width, height + reflectionGap, defaultPaint);
+
+        canvas.drawBitmap(reflectionBitmap, 0, height + reflectionGap, null);
+
+        Paint paint = new Paint();
+        LinearGradient shader = new LinearGradient(0,
+                originalBitmap.getHeight(), 0,
+                withReflectionBitmap.getHeight(), 0x70ffffff, 0x00ffffff,
+                TileMode.MIRROR);
+        paint.setShader(shader);
+        paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
+
+        canvas.drawRect(0, height, width, withReflectionBitmap.getHeight(),
+                paint);
+
+        return withReflectionBitmap;
+    }
 }

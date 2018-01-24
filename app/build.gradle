@@ -2,11 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.2"
-
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.geniusgithub.mediarender"
-        minSdkVersion 19
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 2
         versionName "2.0"
@@ -17,9 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
 }
