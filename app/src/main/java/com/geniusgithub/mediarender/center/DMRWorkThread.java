@@ -105,6 +105,8 @@ public class DMRWorkThread extends Thread implements IBaseEngine {
 
     @Override
     public boolean stopEngine() {
+        mStopFlag = false;
+
         PlatinumJniProxy.stopMediaRender();
         mApplication.setDevStatus(false);
         return true;

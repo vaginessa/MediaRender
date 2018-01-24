@@ -93,6 +93,8 @@ public class VideoActivity extends BaseActivity implements MediaControlBrocastFa
 
     @Override
     protected void onStop() {
+        log.e("onStop");
+
         super.onStop();
 
 
