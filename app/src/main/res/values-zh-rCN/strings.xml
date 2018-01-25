@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">DLNA投屏</string>
 
-    <string name="app_name">DLNA</string>
+    <string name="start">启动</string>
+    <string name="restart">重启</string>
+    <string name="stop">停止</string>
+    <string name="dev_name">设备名：</string>
 
-    <string name="start">START</string>
-    <string name="restart">RESTART</string>
-    <string name="stop">STOP</string>
-    <string name="dev_name">DEV NAME:</string>
-
-    <string name="status">Status: </string>
-    <string name="status_open">Opened</string>
-    <string name="status_close">Closed</string>
-    <string name="uuid">UUID: </string>
+    <string name="status">状态：</string>
+    <string name="status_open">已启动</string>
+    <string name="status_close">已停止</string>
+    <string name="uuid">识别码：</string>
 
     <string name="second">S</string>
     <string name="separate"> / </string>

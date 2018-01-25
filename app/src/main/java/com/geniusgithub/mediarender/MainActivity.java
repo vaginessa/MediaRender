@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Devic
     private static final CommonLog log = LogFactory.createLog();
 
     private Button mBtnStart;
-    private Button mBtnReset;
+    private Button mBtnRestart;
     private Button mBtnStop;
 
     private Button mBtnEditName;
@@ -53,18 +53,21 @@ public class MainActivity extends BaseActivity implements OnClickListener, Devic
 
 
     private void setupView() {
-        mBtnStart = (Button) findViewById(R.id.btn_init);
-        mBtnReset = (Button) findViewById(R.id.btn_reset);
+        mBtnStart = (Button) findViewById(R.id.btn_start);
+        mBtnRestart = (Button) findViewById(R.id.btn_restart);
         mBtnStop = (Button) findViewById(R.id.btn_stop);
         mBtnEditName = (Button) findViewById(R.id.bt_dev_name);
         mBtnStart.setOnClickListener(this);
-        mBtnReset.setOnClickListener(this);
+        mBtnRestart.setOnClickListener(this);
         mBtnStop.setOnClickListener(this);
         mBtnEditName.setOnClickListener(this);
 
         mTVDevInfo = (TextView) findViewById(R.id.tv_dev_info);
         mETName = (EditText) findViewById(R.id.et_dev_name);
 
+        mBtnStart.setEnabled(true);
+        mBtnRestart.setEnabled(false);
+        mBtnStop.setEnabled(false);
     }
 
     private void initData() {
@@ -85,20 +88,31 @@ public class MainActivity extends BaseActivity implements OnClickListener, Devic
     }
 
     private void updateDevInfo(DeviceInfo object) {
-        String status = object.status ? "open" : "close";
-        String text = "status: " + status + "\n" +
-                "friend name: " + object.dev_name + "\n" +
-                "uuid: " + object.uuid;
+        String status = object.status ? getString(R.string.status_open) : getString(R.string.status_close);
+        String text = getString(R.string.status) + status + "\n" +
+                getString(R.string.dev_name) + object.dev_name + "\n" +
+                getString(R.string.uuid) + object.uuid;
+
         mTVDevInfo.setText(text);
+
+        if(object.status) {
+            mBtnStart.setEnabled(false);
+            mBtnRestart.setEnabled(true);
+            mBtnStop.setEnabled(true);
+        } else {
+            mBtnStart.setEnabled(true);
+            mBtnRestart.setEnabled(false);
+            mBtnStop.setEnabled(false);
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_init:
+            case R.id.btn_start:
                 start();
                 break;
-            case R.id.btn_reset:
+            case R.id.btn_restart:
                 reset();
                 break;
             case R.id.btn_stop:
@@ -109,7 +123,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Devic
                 break;
         }
     }
-
 
     private void start() {
         mRenderProxy.startEngine();
