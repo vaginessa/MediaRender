@@ -327,6 +327,7 @@ csdn blog : [http://blog.csdn.net/geniuseoe2012](http://blog.csdn.net/lancees/ar
 cnblog : [http://www.cnblogs.com/lance2016](http://www.cnblogs.com/lance2016/p/5204293.html)<br /> 
 dlna doc: [DLNA Document](http://download.csdn.net/detail/geniuseoe2012/4969961)<br />
 Platinum SDK : [Platinum](http://sourceforge.net/projects/platinum/)<br /> 
+libplatinum-jni.so source : [libplatinum-jni](https://github.com/talent518/Platinum/tree/master/Source/Platform/Android/MediaRender)<br /> 
 
 ### Development
 If you think this article useful Nepal , please pay attention to me<br />
